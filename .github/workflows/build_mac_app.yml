@@ -33,4 +33,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: MyApp
-          path: dist/dynamixelControl  # Path to the generated app in dist/
+          path: dynamixelControl  # Path to the generated app in dist/
