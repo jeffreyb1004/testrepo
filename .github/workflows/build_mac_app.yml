@@ -3,23 +3,20 @@ name: Build macOS App
 on:
   push:
     branches:
-      - main  # Trigger build on push to the main branch (adjust if you're using a different branch)
-  pull_request:
-    branches:
-      - main  # Optionally, trigger on pull requests too
+      - main  # Trigger the build on the main branch (adjust if you're using a different branch)
 
 jobs:
   build:
-    runs-on: macos-latest  # Use the latest macOS environment provided by GitHub Actions
+    runs-on: macos-latest  # Use macOS as the environment for the build
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # Checks out your repository code
+        uses: actions/checkout@v2  # Checks out the repository code
 
       - name: Set up Python
-        uses: actions/setup-python@v2  # Sets up Python
+        uses: actions/setup-python@v2  # Set up Python environment
         with:
-          python-version: '3.x'  # Use the desired Python version (e.g., 3.9)
+          python-version: '3.x'  # Adjust to the required Python version
 
       - name: Install dependencies
         run: |
@@ -30,7 +27,7 @@ jobs:
           pyinstaller --onefile --windowed --distpath=dist --workpath=build dynamixelControl.py  # Replace with your script name
 
       - name: Upload built .app as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3  # Latest version of upload-artifact
         with:
-          name: MyApp
-          path: dynamixelControl  # Path to the generated app in dist/
+          name: MyApp  # Artifact name
+          path: dist/dynamixelControl  # Path to the generated .app (adjust as necessary)
