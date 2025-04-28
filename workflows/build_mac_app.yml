@@ -1,0 +1,36 @@
+name: Build macOS App
+
+on:
+  push:
+    branches:
+      - main  # Trigger build on push to the main branch (adjust if you're using a different branch)
+  pull_request:
+    branches:
+      - main  # Optionally, trigger on pull requests too
+
+jobs:
+  build:
+    runs-on: macos-latest  # Use the latest macOS environment provided by GitHub Actions
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Checks out your repository code
+
+      - name: Set up Python
+        uses: actions/setup-python@v2  # Sets up Python
+        with:
+          python-version: '3.x'  # Use the desired Python version (e.g., 3.9)
+
+      - name: Install dependencies
+        run: |
+          pip install pyinstaller  # Install PyInstaller
+
+      - name: Build the macOS app
+        run: |
+          pyinstaller --onefile --windowed --distpath=dist --workpath=controlDynamixel.py  # Replace with your script name
+
+      - name: Upload built .app as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: MyApp
+          path: dist/neckcontrol  # Path to the generated app in dist/
