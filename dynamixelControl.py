@@ -1,7 +1,7 @@
 import time
 import tkinter as tk
 from dynamixel_sdk import *    # Dynamixel SDK
-from tkinter import messagebox
+from tkinter import messagebox 
 
 # Control table addresses
 ADDR_TORQUE_ENABLE      = 64
